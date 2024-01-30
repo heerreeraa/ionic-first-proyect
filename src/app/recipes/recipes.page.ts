@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RecipesService } from './recipes.service';
 import { Recipe } from './recipe.model';
 
@@ -7,7 +7,7 @@ import { Recipe } from './recipe.model';
   templateUrl: './recipes.page.html',
   styleUrls: ['./recipes.page.scss'],
 })
-export class RecipesPage implements OnInit {
+export class RecipesPage implements OnInit, OnDestroy {
   recipes?: Recipe[];
 
   
@@ -15,13 +15,33 @@ export class RecipesPage implements OnInit {
 
   }
 
+  // IONIC + ANGULAR LIFECYLES
+
   ngOnInit() {
     this.recipes = this.recipesService.getAllRecipes();
+    console.log('On Inithialize method called');
   }
  
   ionViewWillEnter() {
     this.recipes = this.recipesService.getAllRecipes();
-    console.log(this.recipes);
+    // console.log(this.recipes);
+    console.log('Recipes Loaded!');
+    console.log('On ionic view will enter method called'); 
   }
 
+  ionViewDidEnter() {
+    console.log('On ionic view did enter method called'); 
+  }
+
+  ionViewWillLeave() {
+    console.log('On ionic view will leave method called'); 
+  }
+
+  ionViewDidLeave() {
+    console.log('On ionic view did leave method called'); 
+  }
+
+  ngOnDestroy() {
+    console.log('On Destroy method called'); 
+  }
 }
